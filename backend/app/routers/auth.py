@@ -224,6 +224,7 @@ def login(
 
     return {
         "message": "Login successful",
+        "token": access_token,
     }
 
 
@@ -314,6 +315,7 @@ def refresh_access_token(
 
     return {
         "message": "Access token refreshed",
+        "token": access_token,
     }
 
 

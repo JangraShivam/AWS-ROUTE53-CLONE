@@ -7,12 +7,15 @@ from app.schemas.hosted_zone import HostedZoneCreate
 
 def create(
     db: Session,
+    user_id: int,
     zone_data: HostedZoneCreate,
 ) -> HostedZone:
 
     zone = HostedZone(
         domain_name=zone_data.domain_name,
-        user_id=zone_data.user_id,
+        user_id=user_id,
+        type=zone_data.type,
+        description=zone_data.description,
     )
 
     db.add(zone)

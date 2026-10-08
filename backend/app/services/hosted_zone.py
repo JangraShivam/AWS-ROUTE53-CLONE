@@ -7,9 +7,10 @@ from app.models.hosted_zone import HostedZone
 
 def create(
     db: Session,
+    user_id: int,
     zone_data: HostedZoneCreate,
 ) -> HostedZone:
-    return repository.create(db, zone_data)
+    return repository.create(db, user_id, zone_data)
 
 def get_all(db: Session) -> list[HostedZone]:
     return repository.get_all(db)

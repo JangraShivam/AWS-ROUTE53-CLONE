@@ -17,6 +17,7 @@ def create(
         type=record_data.type,
         value=record_data.value,
         ttl=record_data.ttl,
+        routing_policy=record_data.routing_policy,
     )
 
     db.add(record)

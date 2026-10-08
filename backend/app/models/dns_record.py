@@ -37,8 +37,14 @@ class DNSRecord(Base):
         default=300,
     )
 
+    routing_policy: Mapped[str] = mapped_column(
+        String(50),
+        default="Simple routing",
+        nullable=False,
+    )
+
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
-        default=datetime.now(timezone.utc),
+        default=lambda: datetime.now(timezone.utc),
         nullable=False,
     )

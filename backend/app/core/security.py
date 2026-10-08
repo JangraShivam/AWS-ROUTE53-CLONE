@@ -6,7 +6,7 @@ from jose import jwt
 from passlib.context import CryptContext
 
 from app.core.config import settings
-from fastapi import Cookie, Depends, HTTPException, status
+from fastapi import Cookie, Depends, Header, HTTPException, status
 
 from fastapi import Depends, HTTPException, status
 from jose import JWTError, jwt
@@ -19,6 +19,7 @@ from app.models.refresh_token import RefreshToken
 
 def get_current_user(
     access_token: str | None = Cookie(default=None),
+    authorization: str | None = Header(default=None),
     db: Session = Depends(get_db),
 ) -> User:
 
@@ -26,6 +27,12 @@ def get_current_user(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
     )
+
+    if access_token is None and authorization:
+        scheme, _, token = authorization.partition(" ")
+
+        if scheme.lower() == "bearer" and token:
+            access_token = token
 
     if access_token is None:
         raise credentials_exception
